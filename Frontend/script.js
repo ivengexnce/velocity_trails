@@ -202,7 +202,6 @@ function startBoot() {
     const steps = [
         { t: '> VELOCITY TRAILS — INITIALIZING…', cls: '', pct: 8, d: 0 },
         { t: '> LOADING MISSION DATABASE…', cls: '', pct: 18, d: 420 },
-        { t: '> SECURE CHANNEL ESTABLISHED — 256-BIT AES', cls: 'ok', pct: 68, d: 2750 },
         { t: '> MISSION PARAMETER MATRIX: LOADED', cls: 'ok', pct: 78, d: 3200 },
         { t: '> ECHO AI GUARDIAN: ONLINE', cls: 'ok', pct: 88, d: 3650 },
         { t: '> ALL SYSTEMS NOMINAL — TERMINAL READY', cls: 'ok', pct: 100, d: 4200 },
@@ -235,7 +234,7 @@ function startBoot() {
 
 /* ══ NAV BUTTONS ══ */
 document.getElementById('btn-briefing').addEventListener('click', () => { AUDIO.sfxScifi(); openModal('modal-mission'); });
-document.getElementById('btn-leaderboard').addEventListener('click', () => { AUDIO.sfxScifi(); openModal('modal-leaderboard'); });
+document.getElementById('btn-leaderboard').addEventListener('click', () => { AUDIO.sfxScifi(); window.location.href = '../backend/admin.html'; });
 document.getElementById('btn-exit').addEventListener('click', () => { AUDIO.sfxError(); exitSystem(); });
 document.getElementById('rules-link').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openModal('modal-mission') });
 
@@ -378,19 +377,16 @@ function runAuthSequence(name, roll, dept, yr) {
 
     openModal('modal-auth');
     const term = document.getElementById('auth-terminal'), action = document.getElementById('auth-action');
-    term.innerHTML = ''; 
+    term.innerHTML = '';
     action.style.display = 'block'; // Make proceed button visible right away
 
     const lines = [
         { t: '> INITIALIZING ECHO AUTHENTICATION PROTOCOL v4.2…', cls: '', d: 0 },
         { t: '> CONNECTING TO MISSION CONTROL SERVER…', cls: '', d: 300 },
-        { t: '> SECURE CHANNEL ESTABLISHED — 256-BIT QUANTUM AES', cls: 'ok', d: 600 },
         { t: `> SCANNING AGENT: "${name.toUpperCase()}"`, cls: '', d: 900 },
         { t: `> UNIT ID: [${roll.toUpperCase()}]`, cls: 'ok', d: 1200 },
         { t: `> DEPARTMENT VERIFIED: ${dept.toUpperCase()}`, cls: 'ok', d: 1500 },
         { t: `> YEAR CLEARANCE: ${yr.toUpperCase()}`, cls: '', d: 1800 },
-        { t: '> CROSS-REFERENCING HUMANITY AGENT DATABASE…', cls: '', d: 2100 },
-        { t: '> NO THREAT FLAGS DETECTED — AGENT CLEARED', cls: 'ok', d: 2400 },
         { t: '> ASSIGNING MISSION COORDINATES & ZONE ACCESS…', cls: '', d: 2700 },
         { t: '> ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 100%', cls: '', d: 3000 },
         { t: '', cls: 'blank', d: 3200 },
@@ -691,7 +687,7 @@ function startLevel1() {
             GAME_STATE.player.dept = p.dept || 'CSE';
             GAME_STATE.player.roll = p.roll || '2K26';
         }
-    } catch(e) {}
+    } catch (e) { }
 
     // Hide auth terminal main app, show Stage 1
     document.querySelector('.app').style.display = 'none';
@@ -1139,7 +1135,7 @@ function startLevel1() {
             GAME_STATE.player.dept = p.dept || 'CSE';
             GAME_STATE.player.roll = p.roll || '2K26';
         }
-    } catch(e) {}
+    } catch (e) { }
 
     const app = document.querySelector('.app');
     if (app) app.style.display = 'none';
@@ -1174,7 +1170,7 @@ function proceedToLevel2() {
             const p = JSON.parse(saved);
             GAME_STATE.player.name = p.name || 'Agent';
         }
-    } catch(e) {}
+    } catch (e) { }
 
     const stage1 = document.getElementById('game-stage-1');
     if (stage1) stage1.style.display = 'none';
@@ -1209,7 +1205,7 @@ function proceedToLevel3() {
             GAME_STATE.player.dept = p.dept || 'CSE';
             GAME_STATE.player.roll = p.roll || '2K26';
         }
-    } catch(e) {}
+    } catch (e) { }
 
     const stage2 = document.getElementById('game-stage-2');
     if (stage2) stage2.style.display = 'none';
@@ -1239,4 +1235,4 @@ document.addEventListener('DOMContentLoaded', () => {
         proceedToLevel3();
     }
 });
-
+
