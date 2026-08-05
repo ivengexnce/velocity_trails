@@ -103,7 +103,8 @@
       <div class="modal-divider"></div>
       <div class="auth-terminal" id="auth-terminal"></div>
       <div id="auth-action" style="text-align:center;display:none">
-        <button class="modal-close" style="letter-spacing:4px;font-size:12px" onclick="closeModal('modal-auth'); startLevel1();">▸
+        <button class="modal-close" style="letter-spacing:4px;font-size:12px"
+          onclick="closeModal('modal-auth'); startLevel1();">▸
           PROCEED TO MISSION</button>
       </div>
     </div>
@@ -148,10 +149,45 @@
     </div>
   </div>
 
+  <!-- ══════════════════════════
+   LEADERBOARD PASSWORD GATE MODAL (NEW)
+══════════════════════════ -->
+  <div class="modal-overlay" id="modal-lb-gate">
+    <div class="modal-panel" style="max-width:400px;text-align:center">
+      <div class="mc tl"></div>
+      <div class="mc tr"></div>
+      <div class="mc bl"></div>
+      <div class="mc br"></div>
+      <div class="modal-title" style="color:#ffd700">◈ RESTRICTED ACCESS</div>
+      <div class="modal-divider"></div>
+      <div
+        style="padding:8px 0 20px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,215,0,.6);">
+        LEADERBOARD IS CLASSIFIED.<br>ADMIN CREDENTIALS REQUIRED.
+      </div>
+      <div style="text-align:left;margin-bottom:6px;font-size:10px;letter-spacing:3px;color:rgba(200,225,255,.45);">
+        ADMIN PASSWORD</div>
+      <div style="position:relative;margin-bottom:10px;">
+        <input id="lb-gate-pass" type="password" placeholder="••••" maxlength="20" autocomplete="off"
+          style="width:100%;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.25);color:#ffd700;font-family:'Share Tech Mono',monospace;font-size:18px;letter-spacing:10px;padding:13px 18px;outline:none;text-align:center;transition:border-color .2s,box-shadow .2s;"
+          oninput="document.getElementById('lb-gate-err').textContent=''"
+          onkeydown="if(event.key==='Enter')lbGateSubmit()">
+      </div>
+      <div id="lb-gate-err" style="font-size:11px;letter-spacing:2px;color:#ff3355;min-height:18px;margin-bottom:16px;">
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button class="modal-close"
+          style="flex:1;background:rgba(255,215,0,.06);border-color:rgba(255,215,0,.35);color:#ffd700;letter-spacing:3px;font-size:10px;"
+          onclick="lbGateSubmit()">▸ AUTHENTICATE</button>
+        <button class="modal-close"
+          style="flex:1;background:rgba(255,51,85,.04);border-color:rgba(255,51,85,.25);color:rgba(255,51,85,.8);letter-spacing:3px;font-size:10px;"
+          onclick="closeModal('modal-lb-gate');document.getElementById('lb-gate-pass').value='';document.getElementById('lb-gate-err').textContent=''">ABORT</button>
+      </div>
+    </div>
+  </div>
 
-  <!-- LEADERBOARD MODAL -->
+  <!-- LEADERBOARD MODAL (now live data) -->
   <div class="modal-overlay" id="modal-leaderboard">
-    <div class="modal-panel" style="max-width:560px">
+    <div class="modal-panel" style="max-width:600px">
       <div class="mc tl"></div>
       <div class="mc tr"></div>
       <div class="mc bl"></div>
@@ -159,71 +195,28 @@
       <div class="modal-title">◈ MISSION LEADERBOARD</div>
       <div class="modal-divider"></div>
       <div class="modal-body">
-        <h3>◈ TOP AGENTS — CURRENT SESSION</h3>
-        <table class="lb-table">
+        <h3>◈ TOP AGENTS — LIVE RANKINGS</h3>
+        <table class="lb-table" id="main-lb-table">
           <thead>
             <tr>
               <th>#</th>
               <th>AGENT</th>
               <th>DEPT</th>
-              <th>ZONES</th>
+              <th>YEAR</th>
               <th>SCORE</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="main-lb-body">
             <tr>
-              <td><span class="lb-rank gold">01</span></td>
-              <td>ARIA-7</td>
-              <td>CSE AI</td>
-              <td>5/5</td>
-              <td><span class="lb-score">9840</span></td>
-            </tr>
-            <tr>
-              <td><span class="lb-rank silver">02</span></td>
-              <td>NEXUS</td>
-              <td>IT</td>
-              <td>5/5</td>
-              <td><span class="lb-score">9210</span></td>
-            </tr>
-            <tr>
-              <td><span class="lb-rank bronze">03</span></td>
-              <td>PHANTOM</td>
-              <td>EXTC</td>
-              <td>4/5</td>
-              <td><span class="lb-score">7630</span></td>
-            </tr>
-            <tr>
-              <td><span class="lb-rank norm">04</span></td>
-              <td>ECHO-X</td>
-              <td>CSE</td>
-              <td>4/5</td>
-              <td><span class="lb-score">6900</span></td>
-            </tr>
-            <tr>
-              <td><span class="lb-rank norm">05</span></td>
-              <td>VORTEX</td>
-              <td>MECH</td>
-              <td>3/5</td>
-              <td><span class="lb-score">5250</span></td>
-            </tr>
-            <tr>
-              <td><span class="lb-rank norm">06</span></td>
-              <td>CIPHER</td>
-              <td>IT</td>
-              <td>3/5</td>
-              <td><span class="lb-score">4880</span></td>
-            </tr>
-            <tr>
-              <td><span class="lb-rank norm">07</span></td>
-              <td>ROGUE</td>
-              <td>CSE AI</td>
-              <td>2/5</td>
-              <td><span class="lb-score">3300</span></td>
+              <td colspan="5"
+                style="text-align:center;padding:32px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:rgba(200,225,255,.3);">
+                ◈ LOADING DATA…
+              </td>
             </tr>
           </tbody>
         </table>
-        <p class="lb-note">★ Leaderboard updates every 60 seconds. Score based on speed, accuracy &amp; bonus tokens
-          collected.</p>
+        <p class="lb-note" id="lb-live-note">★ Live data from localStorage. Score based on speed, accuracy &amp; bonus
+          tokens.</p>
       </div>
       <button class="modal-close" onclick="closeModal('modal-leaderboard')">CLOSE TERMINAL</button>
     </div>
@@ -420,7 +413,8 @@
             MISSION BRIEFING
           </button>
 
-          <button type="button" class="nav-btn" id="btn-leaderboard">
+          <!-- LEADERBOARD — now opens password gate -->
+          <button type="button" class="nav-btn" id="btn-leaderboard" onclick="openLeaderboardGate()">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
             </svg>
@@ -470,6 +464,100 @@
     </div>
 
   </div><!-- /.app -->
+
+  <!-- ══════════════════════════
+   LEADERBOARD GATE + LIVE DATA SCRIPT
+══════════════════════════ -->
+  <script>
+    const LB_ADMIN_PASS = 'meetmaru100406';
+
+    /* Track session auth so they don't re-enter password in same tab */
+    let lbAuthenticated = sessionStorage.getItem('tc_lb_auth') === '1';
+
+    function openLeaderboardGate() {
+      if (lbAuthenticated) {
+        populateAndOpenLeaderboard();
+      } else {
+        document.getElementById('lb-gate-pass').value = '';
+        document.getElementById('lb-gate-err').textContent = '';
+        document.getElementById('modal-lb-gate').classList.add('open');
+        setTimeout(() => document.getElementById('lb-gate-pass').focus(), 120);
+      }
+    }
+
+    function lbGateSubmit() {
+      const val = document.getElementById('lb-gate-pass').value;
+      const errEl = document.getElementById('lb-gate-err');
+      const inp = document.getElementById('lb-gate-pass');
+
+      if (val === LB_ADMIN_PASS) {
+        lbAuthenticated = true;
+        sessionStorage.setItem('tc_lb_auth', '1');
+        errEl.textContent = '';
+        closeModal('modal-lb-gate');
+        inp.value = '';
+        setTimeout(populateAndOpenLeaderboard, 180);
+      } else {
+        errEl.textContent = '⚠ INVALID CREDENTIALS — ACCESS DENIED';
+        inp.style.borderColor = 'rgba(255,51,85,.7)';
+        inp.style.boxShadow = '0 0 14px rgba(255,51,85,.2)';
+        setTimeout(() => {
+          inp.style.borderColor = '';
+          inp.style.boxShadow = '';
+        }, 600);
+        inp.value = '';
+        inp.focus();
+      }
+    }
+
+    function populateAndOpenLeaderboard() {
+      let agents = [];
+      try {
+        agents = JSON.parse(localStorage.getItem('tc_agents') || '[]');
+      } catch (e) { agents = []; }
+
+      /* Sort by score descending */
+      agents.sort((a, b) => (b.score || 0) - (a.score || 0));
+
+      const body = document.getElementById('main-lb-body');
+      const rankClasses = ['gold', 'silver', 'bronze'];
+
+      if (!agents.length) {
+        body.innerHTML = `<tr>
+          <td colspan="5" style="text-align:center;padding:36px 20px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:rgba(200,225,255,.3);">
+            ◈ NO AGENTS REGISTERED YET
+          </td>
+        </tr>`;
+      } else {
+        body.innerHTML = agents.slice(0, 15).map((a, i) => {
+          const rank = String(i + 1).padStart(2, '0');
+          const cls = rankClasses[i] || 'norm';
+          return `<tr>
+            <td><span class="lb-rank ${cls}">${rank}</span></td>
+            <td>${esc(a.name)}</td>
+            <td>${esc(a.dept || '—')}</td>
+            <td>${esc(a.year || '—')}</td>
+            <td><span class="lb-score">${a.score || '—'}</span></td>
+          </tr>`;
+        }).join('');
+      }
+
+      const note = document.getElementById('lb-live-note');
+      note.textContent = `★ ${agents.length} agent${agents.length !== 1 ? 's' : ''} registered · Live data · Score based on speed, accuracy & bonus tokens.`;
+
+      document.getElementById('modal-leaderboard').classList.add('open');
+    }
+
+    function esc(str) {
+      return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    /* Enter key for leaderboard gate */
+    document.addEventListener('DOMContentLoaded', () => {
+      const lbInp = document.getElementById('lb-gate-pass');
+      if (lbInp) lbInp.addEventListener('keydown', e => { if (e.key === 'Enter') lbGateSubmit(); });
+    });
+  </script>
 
   <script src="./script.js"></script>
 </body>

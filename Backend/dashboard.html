@@ -153,11 +153,6 @@
             margin-bottom: 8px;
         }
 
-        .gate-input-wrap {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
         .gate-input {
             width: 100%;
             background: rgba(255, 215, 0, .04);
@@ -170,6 +165,7 @@
             outline: none;
             text-align: center;
             transition: border-color .2s, box-shadow .2s;
+            margin-bottom: 20px;
             -webkit-text-security: disc;
             text-security: disc;
         }
@@ -188,23 +184,23 @@
 
             0%,
             100% {
-                transform: translateX(0);
+                transform: translateX(0)
             }
 
             20% {
-                transform: translateX(-8px);
+                transform: translateX(-8px)
             }
 
             40% {
-                transform: translateX(8px);
+                transform: translateX(8px)
             }
 
             60% {
-                transform: translateX(-5px);
+                transform: translateX(-5px)
             }
 
             80% {
-                transform: translateX(5px);
+                transform: translateX(5px)
             }
         }
 
@@ -405,7 +401,58 @@
             text-shadow: 0 0 20px rgba(57, 255, 20, .4);
         }
 
-        /* Leaderboard table */
+        /* ── TABS ── */
+        .db-tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid rgba(0, 212, 255, .2);
+        }
+
+        .db-tab {
+            font-family: 'Orbitron', monospace;
+            font-size: 10px;
+            letter-spacing: 3px;
+            padding: 12px 28px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-bottom: none;
+            color: rgba(200, 225, 255, .35);
+            cursor: pointer;
+            transition: color .2s, background .2s, border-color .2s;
+            position: relative;
+            top: 1px;
+        }
+
+        .db-tab:hover {
+            color: rgba(0, 212, 255, .7);
+        }
+
+        .db-tab.active {
+            color: var(--c);
+            background: rgba(0, 212, 255, .05);
+            border-color: rgba(0, 212, 255, .2);
+            border-bottom-color: var(--bg);
+        }
+
+        .db-tab.lb-tab.active {
+            color: var(--y);
+            background: rgba(255, 215, 0, .04);
+            border-color: rgba(255, 215, 0, .2);
+            border-bottom-color: var(--bg);
+        }
+
+        /* Tab content panes */
+        .db-pane {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .db-pane.active {
+            display: flex;
+        }
+
+        /* Section */
         .db-section {
             background: rgba(0, 6, 18, .7);
             border: 1px solid var(--border);
@@ -427,6 +474,10 @@
             font-size: 11px;
             letter-spacing: 3px;
             color: var(--c);
+        }
+
+        .db-section-title.lb-title {
+            color: var(--y);
         }
 
         .db-section-actions {
@@ -468,6 +519,10 @@
             margin-bottom: 20px;
         }
 
+        .db-divider.gold {
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, .2), transparent);
+        }
+
         /* Search */
         .db-search-wrap {
             margin-bottom: 16px;
@@ -494,7 +549,7 @@
             color: rgba(200, 225, 255, .25);
         }
 
-        /* Table */
+        /* Tables */
         .lb-wrap {
             overflow-x: auto;
         }
@@ -516,6 +571,11 @@
             white-space: nowrap;
         }
 
+        .lb-table th.gold-th {
+            color: rgba(255, 215, 0, .6);
+            border-bottom-color: rgba(255, 215, 0, .12);
+        }
+
         .lb-table td {
             padding: 11px 14px;
             border-bottom: 1px solid rgba(0, 212, 255, .06);
@@ -529,6 +589,7 @@
             background: rgba(0, 212, 255, .04);
         }
 
+        /* Rank badges */
         .lb-rank {
             font-family: 'Orbitron', monospace;
             font-size: 11px;
@@ -563,6 +624,10 @@
             color: var(--c);
         }
 
+        .lb-score.gold-score {
+            color: var(--y);
+        }
+
         .lb-phone {
             font-family: 'Share Tech Mono', monospace;
             font-size: 12px;
@@ -582,6 +647,91 @@
         .lb-yr {
             color: rgba(57, 255, 20, .7);
             font-size: 11px;
+        }
+
+        /* Podium cards (leaderboard tab) */
+        .lb-podium {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .podium-card {
+            background: rgba(0, 6, 18, .8);
+            border: 1px solid rgba(0, 212, 255, .15);
+            padding: 18px 16px;
+            text-align: center;
+            position: relative;
+        }
+
+        .podium-card.p1 {
+            border-color: rgba(255, 215, 0, .4);
+            box-shadow: 0 0 24px rgba(255, 215, 0, .1);
+        }
+
+        .podium-card.p2 {
+            border-color: rgba(192, 192, 192, .3);
+        }
+
+        .podium-card.p3 {
+            border-color: rgba(205, 127, 50, .3);
+        }
+
+        .podium-medal {
+            font-family: 'Orbitron', monospace;
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 6px;
+        }
+
+        .podium-medal.p1 {
+            color: var(--y);
+            text-shadow: 0 0 16px rgba(255, 215, 0, .5);
+        }
+
+        .podium-medal.p2 {
+            color: #c0c0c0;
+        }
+
+        .podium-medal.p3 {
+            color: #cd7f32;
+        }
+
+        .podium-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #fff;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .podium-dept {
+            font-size: 11px;
+            color: rgba(200, 225, 255, .45);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .podium-score {
+            font-family: 'Orbitron', monospace;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .podium-score.p1 {
+            color: var(--y);
+        }
+
+        .podium-score.p2 {
+            color: #c0c0c0;
+        }
+
+        .podium-score.p3 {
+            color: #cd7f32;
         }
 
         .empty-state {
@@ -627,8 +777,7 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
+        @media (max-width:600px) {
             #dashboard {
                 padding: 16px;
             }
@@ -640,6 +789,12 @@
             .lb-table td,
             .lb-table th {
                 padding: 8px 10px;
+            }
+
+            .db-tab {
+                padding: 10px 14px;
+                font-size: 8px;
+                letter-spacing: 2px;
             }
         }
     </style>
@@ -658,10 +813,8 @@
             <div class="gate-title">AUTHENTICATION REQUIRED</div>
             <div class="gate-divider"></div>
             <div class="gate-label">ADMIN PASSWORD</div>
-            <div class="gate-input-wrap">
-                <input class="gate-input" type="password" id="gate-pass" placeholder="••••" maxlength="20"
-                    autocomplete="off">
-            </div>
+            <input class="gate-input" type="password" id="gate-pass" placeholder="••••" maxlength="20"
+                autocomplete="off">
             <div class="gate-err" id="gate-err"></div>
             <button class="gate-btn" onclick="checkPassword()">▸ AUTHENTICATE</button>
         </div>
@@ -720,49 +873,104 @@
             </div>
         </div>
 
-        <!-- Leaderboard Table -->
-        <div class="db-section">
-            <div class="db-section-header">
-                <div class="db-section-title">◈ AGENT LEADERBOARD</div>
-                <div class="db-section-actions">
-                    <button class="db-action-btn" onclick="exportCSV()">EXPORT CSV</button>
-                    <button class="db-action-btn" onclick="refreshData()">REFRESH</button>
-                    <button class="db-action-btn danger" onclick="clearData()">CLEAR ALL</button>
+        <!-- ── TABS ── -->
+        <div class="db-tabs">
+            <button class="db-tab active" id="tab-reg" onclick="switchTab('reg')">
+                ◈ REGISTRATIONS
+            </button>
+            <button class="db-tab lb-tab" id="tab-lb" onclick="switchTab('lb')">
+                ◈ LEADERBOARD
+            </button>
+        </div>
+
+        <!-- ── PANE: REGISTRATIONS ── -->
+        <div class="db-pane active" id="pane-reg">
+            <div class="db-section">
+                <div class="db-section-header">
+                    <div class="db-section-title">◈ AGENT REGISTRY</div>
+                    <div class="db-section-actions">
+                        <button class="db-action-btn" onclick="exportCSV()">EXPORT CSV</button>
+                        <button class="db-action-btn" onclick="refreshData()">REFRESH</button>
+                        <button class="db-action-btn danger" onclick="clearData()">CLEAR ALL</button>
+                    </div>
                 </div>
-            </div>
-            <div class="db-divider"></div>
-
-            <div class="db-search-wrap">
-                <input class="db-search" type="text" id="db-search" placeholder="SEARCH BY NAME, ROLL, DEPT…"
-                    oninput="filterTable()">
-            </div>
-
-            <div class="lb-wrap">
-                <table class="lb-table" id="lb-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>AGENT NAME</th>
-                            <th>ROLL NO.</th>
-                            <th>DEPT</th>
-                            <th>YEAR</th>
-                            <th>PHONE</th>
-                            <th>SCORE</th>
-                            <th>REGISTERED AT</th>
-                        </tr>
-                    </thead>
-                    <tbody id="lb-body"></tbody>
-                </table>
+                <div class="db-divider"></div>
+                <div class="db-search-wrap">
+                    <input class="db-search" type="text" id="db-search" placeholder="SEARCH BY NAME, ROLL, DEPT…"
+                        oninput="filterTable()">
+                </div>
+                <div class="lb-wrap">
+                    <table class="lb-table" id="lb-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>AGENT NAME</th>
+                                <th>ROLL NO.</th>
+                                <th>DEPT</th>
+                                <th>YEAR</th>
+                                <th>PHONE</th>
+                                <th>SCORE</th>
+                                <th>REGISTERED AT</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lb-body"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-    </div>
+        <!-- ── PANE: LEADERBOARD ── -->
+        <div class="db-pane" id="pane-lb">
+            <div class="db-section">
+                <div class="db-section-header">
+                    <div class="db-section-title lb-title">◈ TOP AGENTS — LIVE RANKINGS</div>
+                    <div class="db-section-actions">
+                        <button class="db-action-btn" onclick="refreshData()">REFRESH</button>
+                    </div>
+                </div>
+                <div class="db-divider gold"></div>
+
+                <!-- Podium top-3 -->
+                <div class="lb-podium" id="lb-podium"></div>
+
+                <!-- Full ranked table -->
+                <div class="lb-wrap">
+                    <table class="lb-table" id="lb-ranked-table">
+                        <thead>
+                            <tr>
+                                <th class="gold-th">#</th>
+                                <th class="gold-th">AGENT NAME</th>
+                                <th class="gold-th">DEPT</th>
+                                <th class="gold-th">YEAR</th>
+                                <th class="gold-th">SCORE</th>
+                                <th class="gold-th">REGISTERED AT</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lb-ranked-body"></tbody>
+                    </table>
+                </div>
+                <p style="margin-top:16px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(200,225,255,.3);"
+                    id="lb-count-note">
+                    ★ Score based on speed, accuracy & bonus tokens collected.
+                </p>
+            </div>
+        </div>
+
+    </div><!-- /#dashboard -->
 
     <div id="toast"></div>
 
     <script>
         const ADMIN_PASS = 'meetmaru100406';
         let allAgents = [];
+
+        /* ── TAB SWITCHING ── */
+        function switchTab(id) {
+            document.querySelectorAll('.db-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.db-pane').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.add('active');
+            document.getElementById('pane-' + id).classList.add('active');
+        }
 
         /* ── AUTH ── */
         function checkPassword() {
@@ -797,14 +1005,12 @@
             document.getElementById('gate-err').textContent = '';
         }
 
-        // Auto-login if already authenticated this session
         if (sessionStorage.getItem('tc_admin_auth') === '1') {
             document.getElementById('gate').style.display = 'none';
             document.getElementById('dashboard').classList.add('active');
             window.addEventListener('DOMContentLoaded', loadDashboard);
         }
 
-        // Enter key support
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('gate-pass').addEventListener('keydown', e => {
                 if (e.key === 'Enter') checkPassword();
@@ -813,26 +1019,20 @@
 
         /* ── DATA ── */
         function loadDashboard() {
-            try {
-                allAgents = JSON.parse(localStorage.getItem('tc_agents') || '[]');
-            } catch (e) { allAgents = []; }
-
-            // Sort by score desc
+            try { allAgents = JSON.parse(localStorage.getItem('tc_agents') || '[]'); }
+            catch (e) { allAgents = []; }
             allAgents.sort((a, b) => (b.score || 0) - (a.score || 0));
             updateStats();
             renderTable(allAgents);
+            renderLeaderboard();
         }
 
-        function refreshData() {
-            loadDashboard();
-            showToast('DATA REFRESHED');
-        }
+        function refreshData() { loadDashboard(); showToast('DATA REFRESHED'); }
 
         function updateStats() {
             document.getElementById('sc-total').textContent = allAgents.length;
-            document.getElementById('sc-top').textContent = allAgents.length ? allAgents[0].score : '—';
+            document.getElementById('sc-top').textContent = allAgents.length ? (allAgents[0].score || '—') : '—';
 
-            // Most active dept
             if (allAgents.length) {
                 const counts = {};
                 allAgents.forEach(a => { counts[a.dept] = (counts[a.dept] || 0) + 1; });
@@ -840,7 +1040,6 @@
                 document.getElementById('sc-dept').textContent = top ? top[0].replace('CSE (AI & ML)', 'AI&ML') : '—';
             }
 
-            // Last registration
             if (allAgents.length) {
                 const latest = [...allAgents].sort((a, b) => b.ts - a.ts)[0];
                 document.getElementById('sc-last').textContent = latest
@@ -850,40 +1049,84 @@
         }
 
         function rankClass(i) {
-            if (i === 0) return 'gold';
-            if (i === 1) return 'silver';
-            if (i === 2) return 'bronze';
-            return 'norm';
+            return ['gold', 'silver', 'bronze'][i] || 'norm';
         }
 
+        /* ── REGISTRATIONS TABLE ── */
         function renderTable(agents) {
             const body = document.getElementById('lb-body');
             if (!agents.length) {
-                body.innerHTML = `<tr><td colspan="8">
-        <div class="empty-state">
-          <div class="empty-state-icon">◈</div>
-          <div class="empty-state-msg">NO AGENTS REGISTERED YET</div>
-        </div>
-      </td></tr>`;
+                body.innerHTML = `<tr><td colspan="8"><div class="empty-state">
+                    <div class="empty-state-icon">◈</div>
+                    <div class="empty-state-msg">NO AGENTS REGISTERED YET</div>
+                </div></td></tr>`;
                 return;
             }
-
             body.innerHTML = agents.map((a, i) => {
                 const rank = String(i + 1).padStart(2, '0');
                 const cls = rankClass(i);
                 const dt = new Date(a.ts);
                 const time = dt.toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
                 return `<tr>
-        <td><span class="lb-rank ${cls}">${rank}</span></td>
-        <td><strong>${esc(a.name)}</strong></td>
-        <td>${esc(a.roll)}</td>
-        <td class="lb-dept">${esc(a.dept)}</td>
-        <td class="lb-yr">${esc(a.year)}</td>
-        <td class="lb-phone">${esc(a.phone || '—')}</td>
-        <td><span class="lb-score">${a.score || '—'}</span></td>
-        <td class="lb-ts">${time}</td>
-      </tr>`;
+                    <td><span class="lb-rank ${cls}">${rank}</span></td>
+                    <td><strong>${esc(a.name)}</strong></td>
+                    <td>${esc(a.roll)}</td>
+                    <td class="lb-dept">${esc(a.dept)}</td>
+                    <td class="lb-yr">${esc(a.year)}</td>
+                    <td class="lb-phone">${esc(a.phone || '—')}</td>
+                    <td><span class="lb-score">${a.score || '—'}</span></td>
+                    <td class="lb-ts">${time}</td>
+                </tr>`;
             }).join('');
+        }
+
+        /* ── LEADERBOARD PANE ── */
+        function renderLeaderboard() {
+            const ranked = [...allAgents].sort((a, b) => (b.score || 0) - (a.score || 0));
+            const podiumEl = document.getElementById('lb-podium');
+            const bodyEl = document.getElementById('lb-ranked-body');
+            const noteEl = document.getElementById('lb-count-note');
+
+            if (!ranked.length) {
+                podiumEl.innerHTML = '';
+                bodyEl.innerHTML = `<tr><td colspan="6"><div class="empty-state">
+                    <div class="empty-state-icon">◈</div>
+                    <div class="empty-state-msg">NO AGENTS WITH SCORES YET</div>
+                </div></td></tr>`;
+                noteEl.textContent = '★ Score based on speed, accuracy & bonus tokens collected.';
+                return;
+            }
+
+            /* Podium top-3 */
+            const podiumLabels = ['#1', '#2', '#3'];
+            const podiumClasses = ['p1', 'p2', 'p3'];
+            podiumEl.innerHTML = ranked.slice(0, 3).map((a, i) => {
+                const pc = podiumClasses[i];
+                return `<div class="podium-card ${pc}">
+                    <div class="podium-medal ${pc}">${podiumLabels[i]}</div>
+                    <div class="podium-name">${esc(a.name)}</div>
+                    <div class="podium-dept">${esc(a.dept || '—')} · ${esc(a.year || '—')}</div>
+                    <div class="podium-score ${pc}">${a.score || '—'}</div>
+                </div>`;
+            }).join('');
+
+            /* Full table (all agents, ranked) */
+            bodyEl.innerHTML = ranked.map((a, i) => {
+                const rank = String(i + 1).padStart(2, '0');
+                const cls = rankClass(i);
+                const dt = new Date(a.ts);
+                const time = dt.toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+                return `<tr>
+                    <td><span class="lb-rank ${cls}">${rank}</span></td>
+                    <td><strong>${esc(a.name)}</strong></td>
+                    <td class="lb-dept">${esc(a.dept || '—')}</td>
+                    <td class="lb-yr">${esc(a.year || '—')}</td>
+                    <td><span class="lb-score gold-score">${a.score || '—'}</span></td>
+                    <td class="lb-ts">${time}</td>
+                </tr>`;
+            }).join('');
+
+            noteEl.textContent = `★ ${ranked.length} agent${ranked.length !== 1 ? 's' : ''} ranked · Score based on speed, accuracy & bonus tokens collected.`;
         }
 
         function esc(str) {
@@ -909,6 +1152,7 @@
             allAgents = [];
             updateStats();
             renderTable([]);
+            renderLeaderboard();
             showToast('ALL DATA CLEARED');
         }
 
