@@ -1,0 +1,17 @@
+{
+    "1": {
+        "title": "Clue One",
+        "question": "Go to the place where knowledge sleeps.",
+        "answer": "Library"
+    },
+    "2": {
+        "title": "Clue Two",
+        "question": "Find the place where innovation begins.",
+        "answer": "Innovation Lab"
+    },
+    "3": {
+        "title": "Final Clue",
+        "question": "Locate the hidden Velocity Code.",
+        "answer": "VT2026"
+    }
+}

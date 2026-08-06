@@ -234,7 +234,6 @@ function startBoot() {
 
 /* ══ NAV BUTTONS ══ */
 document.getElementById('btn-briefing').addEventListener('click', () => { AUDIO.sfxScifi(); openModal('modal-mission'); });
-document.getElementById('btn-leaderboard').addEventListener('click', () => { AUDIO.sfxScifi(); window.location.href = '../backend/admin.html'; });
 document.getElementById('btn-exit').addEventListener('click', () => { AUDIO.sfxError(); exitSystem(); });
 document.getElementById('rules-link').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openModal('modal-mission') });
 
@@ -309,7 +308,7 @@ function updateProgress() {
     const v = id => document.getElementById(id).value.trim();
     const checks = [
         v('playerName').length >= 2,
-        v('rollNumber').length > 0,
+        v('AGENT_IDNumber').length > 0,
         v('department') !== '',
         v('year') !== '',
         /^[6-9]\d{9}$/.test(v('phone')),
@@ -319,7 +318,7 @@ function updateProgress() {
     document.getElementById('fp-fill').style.width = pct + '%';
     document.getElementById('fp-pct').textContent = pct + '%';
 }
-['playerName', 'rollNumber', 'phone'].forEach(id => {
+['playerName', 'AGENT_IDNumber', 'phone'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => { updateProgress(); AUDIO.sfxType(); });
 });
 ['department', 'year'].forEach(id => {
@@ -339,13 +338,13 @@ function validateField(id) {
     const v = document.getElementById(id).value.trim();
     switch (id) {
         case 'playerName': return setField('playerName', 'err-name', v.length >= 2);
-        case 'rollNumber': return setField('rollNumber', 'err-roll', v.length > 0);
+        case 'AGENT_IDNumber': return setField('AGENT_IDNumber', 'err-AGENT_ID', v.length > 0);
         case 'department': return setField('department', 'err-dept', v !== '');
         case 'year': return setField('year', 'err-year', v !== '');
         case 'phone': return setField('phone', 'err-phone', /^[6-9]\d{9}$/.test(v));
     }
 }
-['playerName', 'rollNumber', 'phone'].forEach(id => {
+['playerName', 'AGENT_IDNumber', 'phone'].forEach(id => {
     document.getElementById(id).addEventListener('blur', () => validateField(id));
     document.getElementById(id).addEventListener('input', () => {
         if (document.getElementById(id).classList.contains('err')) validateField(id);
@@ -358,7 +357,7 @@ function validateField(id) {
 document.getElementById('phone').addEventListener('keypress', e => { if (!/[0-9]/.test(e.key)) e.preventDefault() });
 
 function validateAll() {
-    const r = ['playerName', 'rollNumber', 'department', 'year', 'phone'].map(id => validateField(id));
+    const r = ['playerName', 'AGENT_IDNumber', 'department', 'year', 'phone'].map(id => validateField(id));
     const chkWrap = document.getElementById('chk-wrap'), agreed = document.getElementById('agree').checked;
     chkWrap.classList.toggle('err', !agreed);
     if (!agreed) { chkWrap.classList.add('shake'); setTimeout(() => chkWrap.classList.remove('shake'), 320); }
@@ -366,10 +365,10 @@ function validateAll() {
 }
 
 /* ══ AUTH SEQUENCE ══ */
-function runAuthSequence(name, roll, dept, yr) {
+function runAuthSequence(name, AGENT_ID, dept, yr) {
     try {
         localStorage.setItem('tc_player', JSON.stringify({
-            name, roll, dept, year: yr,
+            name, AGENT_ID, dept, year: yr,
             phone: document.getElementById('phone').value.trim(),
             ts: Date.now()
         }));
@@ -384,7 +383,7 @@ function runAuthSequence(name, roll, dept, yr) {
         { t: '> INITIALIZING ECHO AUTHENTICATION PROTOCOL v4.2…', cls: '', d: 0 },
         { t: '> CONNECTING TO MISSION CONTROL SERVER…', cls: '', d: 300 },
         { t: `> SCANNING AGENT: "${name.toUpperCase()}"`, cls: '', d: 900 },
-        { t: `> UNIT ID: [${roll.toUpperCase()}]`, cls: 'ok', d: 1200 },
+        { t: `> UNIT ID: [${AGENT_ID.toUpperCase()}]`, cls: 'ok', d: 1200 },
         { t: `> DEPARTMENT VERIFIED: ${dept.toUpperCase()}`, cls: 'ok', d: 1500 },
         { t: `> YEAR CLEARANCE: ${yr.toUpperCase()}`, cls: '', d: 1800 },
         { t: '> ASSIGNING MISSION COORDINATES & ZONE ACCESS…', cls: '', d: 2700 },
@@ -395,7 +394,7 @@ function runAuthSequence(name, roll, dept, yr) {
     lines.forEach(({ t, cls, d }) => {
         setTimeout(() => {
             const s = document.createElement('span'); s.className = 'auth-line ' + cls; s.textContent = t;
-            term.appendChild(s); term.scrollTop = term.scrollHeight;
+            term.appendChild(s); term.scAGENT_IDTop = term.scAGENT_IDHeight;
         }, d);
     });
 
@@ -413,7 +412,7 @@ function handleStartMission(e) {
     if (!validateAll()) { AUDIO.sfxError(); return false; }
     AUDIO.sfxSuccess();
     const n = document.getElementById('playerName').value.trim();
-    const r = document.getElementById('rollNumber').value.trim();
+    const r = document.getElementById('AGENT_IDNumber').value.trim();
     const d = document.getElementById('department').value;
     const y = document.getElementById('year').value;
     const btn = document.getElementById('startBtn'), label = document.getElementById('btn-label');
@@ -616,7 +615,7 @@ function exitSystem() {
    GLOBAL GAME STATE & GAME ENGINE
 ══════════════════════════════════════════════════ */
 const GAME_STATE = {
-    player: { name: 'Agent', roll: '2K26', dept: 'CSE AI', year: 'BE' },
+    player: { name: 'Agent', AGENT_ID: '2K26', dept: 'CSE AI', year: 'BE' },
     currentLevel: 0,
     startTime: null,
     level1: {
@@ -685,7 +684,7 @@ function startLevel1() {
             const p = JSON.parse(saved);
             GAME_STATE.player.name = p.name || 'Agent';
             GAME_STATE.player.dept = p.dept || 'CSE';
-            GAME_STATE.player.roll = p.roll || '2K26';
+            GAME_STATE.player.AGENT_ID = p.AGENT_ID || '2K26';
         }
     } catch (e) { }
 
@@ -1114,7 +1113,7 @@ function triggerVictory() {
     const vName = document.getElementById('v-agent-name');
     if (vName) vName.textContent = GAME_STATE.player.name.toUpperCase();
     const vDept = document.getElementById('v-agent-dept');
-    if (vDept) vDept.textContent = `${GAME_STATE.player.dept.toUpperCase()} | ROLL: ${GAME_STATE.player.roll}`;
+    if (vDept) vDept.textContent = `${GAME_STATE.player.dept.toUpperCase()} | AGENT_ID: ${GAME_STATE.player.AGENT_ID}`;
     const vTime = document.getElementById('v-total-time');
     if (vTime) vTime.textContent = '03:42.5';
     AUDIO.sfxSuccess();
@@ -1133,7 +1132,7 @@ function startLevel1() {
             const p = JSON.parse(saved);
             GAME_STATE.player.name = p.name || 'Agent';
             GAME_STATE.player.dept = p.dept || 'CSE';
-            GAME_STATE.player.roll = p.roll || '2K26';
+            GAME_STATE.player.AGENT_ID = p.AGENT_ID || '2K26';
         }
     } catch (e) { }
 
@@ -1203,7 +1202,7 @@ function proceedToLevel3() {
             const p = JSON.parse(saved);
             GAME_STATE.player.name = p.name || 'Agent';
             GAME_STATE.player.dept = p.dept || 'CSE';
-            GAME_STATE.player.roll = p.roll || '2K26';
+            GAME_STATE.player.AGENT_ID = p.AGENT_ID || '2K26';
         }
     } catch (e) { }
 
